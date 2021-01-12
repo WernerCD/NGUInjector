@@ -67,7 +67,6 @@ namespace NGUInjector.Managers
                 }
             }
             dictDouble = (from x in dictDouble
-                          where !Settings.WishExclusions.Contains(x.Key)
                           orderby x.Value
                           select x).ToDictionary(x => x.Key, x => x.Value);
             for (var j = 0; j < dictDouble.Count; j++)

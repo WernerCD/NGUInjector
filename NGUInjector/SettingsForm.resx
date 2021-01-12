@@ -4225,7 +4225,7 @@
     <value>NoControl</value>
   </data>
   <data name="ExcludeWishButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>399, 256</value>
+    <value>399, 257</value>
   </data>
   <data name="ExcludeWishButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 20</value>
@@ -4597,7 +4597,7 @@
     <value>NoControl</value>
   </data>
   <data name="AddWishButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>102, 258</value>
+    <value>109, 259</value>
   </data>
   <data name="AddWishButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 20</value>
