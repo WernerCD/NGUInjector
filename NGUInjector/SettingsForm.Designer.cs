@@ -186,6 +186,11 @@
             this.AllowMajor = new System.Windows.Forms.CheckBox();
             this.ManageQuests = new System.Windows.Forms.CheckBox();
             this.tabPage9 = new System.Windows.Forms.TabPage();
+            this.ExcludeWishButton = new System.Windows.Forms.Button();
+            this.ExcludeWishDownButton = new System.Windows.Forms.Button();
+            this.ExcludeWishUpButton = new System.Windows.Forms.Button();
+            this.RemoveExclusion = new System.Windows.Forms.Button();
+            this.WishExclusions = new System.Windows.Forms.ListBox();
             this.WishSortOrder = new System.Windows.Forms.CheckBox();
             this.WishSortPriorities = new System.Windows.Forms.CheckBox();
             this.WishDownButton = new System.Windows.Forms.Button();
@@ -210,6 +215,7 @@
             this.AutoDailySpin = new System.Windows.Forms.CheckBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.moneyPitError)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.yggErrorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.invPrioErrorProvider)).BeginInit();
@@ -1481,6 +1487,12 @@
             // 
             // tabPage9
             // 
+            this.tabPage9.Controls.Add(this.label1);
+            this.tabPage9.Controls.Add(this.ExcludeWishButton);
+            this.tabPage9.Controls.Add(this.ExcludeWishDownButton);
+            this.tabPage9.Controls.Add(this.ExcludeWishUpButton);
+            this.tabPage9.Controls.Add(this.RemoveExclusion);
+            this.tabPage9.Controls.Add(this.WishExclusions);
             this.tabPage9.Controls.Add(this.WishSortOrder);
             this.tabPage9.Controls.Add(this.WishSortPriorities);
             this.tabPage9.Controls.Add(this.WishDownButton);
@@ -1494,6 +1506,43 @@
             resources.ApplyResources(this.tabPage9, "tabPage9");
             this.tabPage9.Name = "tabPage9";
             this.tabPage9.UseVisualStyleBackColor = true;
+            // 
+            // ExcludeWishButton
+            // 
+            resources.ApplyResources(this.ExcludeWishButton, "ExcludeWishButton");
+            this.ExcludeWishButton.Name = "ExcludeWishButton";
+            this.ExcludeWishButton.UseVisualStyleBackColor = true;
+            this.ExcludeWishButton.Click += new System.EventHandler(this.ExcludeWishButton_Click);
+            // 
+            // ExcludeWishDownButton
+            // 
+            resources.ApplyResources(this.ExcludeWishDownButton, "ExcludeWishDownButton");
+            this.ExcludeWishDownButton.Name = "ExcludeWishDownButton";
+            this.ExcludeWishDownButton.UseVisualStyleBackColor = true;
+            this.ExcludeWishDownButton.Click += new System.EventHandler(this.ExcludeWishDownButton_Click);
+            // 
+            // ExcludeWishUpButton
+            // 
+            resources.ApplyResources(this.ExcludeWishUpButton, "ExcludeWishUpButton");
+            this.ExcludeWishUpButton.Name = "ExcludeWishUpButton";
+            this.ExcludeWishUpButton.UseVisualStyleBackColor = true;
+            this.ExcludeWishUpButton.Click += new System.EventHandler(this.ExcludeWishUpButton_Click);
+            // 
+            // RemoveExclusion
+            // 
+            resources.ApplyResources(this.RemoveExclusion, "RemoveExclusion");
+            this.RemoveExclusion.Name = "RemoveExclusion";
+            this.RemoveExclusion.UseVisualStyleBackColor = true;
+            this.RemoveExclusion.Click += new System.EventHandler(this.RemoveExclusion_Click);
+            // 
+            // WishExclusions
+            // 
+            this.WishExclusions.FormattingEnabled = true;
+            this.WishExclusions.Items.AddRange(new object[] {
+            resources.GetString("WishExclusions.Items"),
+            resources.GetString("WishExclusions.Items1")});
+            resources.ApplyResources(this.WishExclusions, "WishExclusions");
+            this.WishExclusions.Name = "WishExclusions";
             // 
             // WishSortOrder
             // 
@@ -1680,6 +1729,11 @@
             this.flowLayoutPanel1.Controls.Add(this.tabControl1);
             resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
             // 
             // SettingsForm
             // 
@@ -1921,5 +1975,11 @@
         private System.Windows.Forms.CheckBox WishSortOrder;
         private System.Windows.Forms.CheckBox WishSortPriorities;
         private System.Windows.Forms.Button ProfileEditButton;
+        private System.Windows.Forms.Button ExcludeWishButton;
+        private System.Windows.Forms.Button ExcludeWishDownButton;
+        private System.Windows.Forms.Button ExcludeWishUpButton;
+        private System.Windows.Forms.Button RemoveExclusion;
+        private System.Windows.Forms.ListBox WishExclusions;
+        private System.Windows.Forms.Label label1;
     }
 }

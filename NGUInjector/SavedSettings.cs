@@ -67,6 +67,7 @@ namespace NGUInjector
         [SerializeField] private bool _manageR3;
         [SerializeField] private bool _activateFruits;
         [SerializeField] private int[] _wishPriorities;
+        [SerializeField] private int[] _wishExclusions;
         [SerializeField] private bool _wishSortPriorities;
         [SerializeField] private bool _wishSortOrder;        
         [SerializeField] private bool _beastMode;
@@ -214,6 +215,7 @@ namespace NGUInjector
             _manageR3 = other.ManageR3;
             _activateFruits = other.ActivateFruits;
             _wishPriorities = other.WishPriorities;
+            _wishExclusions = other.WishExclusions;
             _wishSortPriorities = other.WishSortPriorities;
             _wishSortOrder = other.WishSortOrder;
             _beastMode = other.BeastMode;
@@ -816,6 +818,7 @@ namespace NGUInjector
                 SaveSettings();
             }
         }
+
         public int[] WishPriorities
         {
             get => _wishPriorities;
@@ -823,6 +826,17 @@ namespace NGUInjector
             {
                 if (value == _wishPriorities) return;
                 _wishPriorities = value;
+                SaveSettings();
+            }
+        }
+
+        public int[] WishExclusions
+        {
+            get => _wishExclusions;
+            set
+            {
+                if (value == _wishExclusions) return;
+                _wishExclusions = value;
                 SaveSettings();
             }
         }

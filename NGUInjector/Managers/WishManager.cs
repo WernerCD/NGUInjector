@@ -65,10 +65,11 @@ namespace NGUInjector.Managers
                 {
                     dictDouble.Add(i, this.sortValue(i) + i);
                 }
-            }            
+            }
             dictDouble = (from x in dictDouble
-                               orderby x.Value
-                               select x).ToDictionary(x => x.Key, x => x.Value);
+                          where !Settings.WishExclusions.Contains(x.Key)
+                          orderby x.Value
+                          select x).ToDictionary(x => x.Key, x => x.Value);
             for (var j = 0; j < dictDouble.Count; j++)
             {
                 _curValidUpgradesList.Add(dictDouble.ElementAt(j).Key);
@@ -90,6 +91,10 @@ namespace NGUInjector.Managers
                 return false;
             }
             if (_character.wishesController.character.wishes.wishes[wishId].level >= _character.wishesController.properties[wishId].maxLevel)
+            {
+                return false;
+            }
+            if (Settings.WishExclusions.Contains(wishId))
             {
                 return false;
             }

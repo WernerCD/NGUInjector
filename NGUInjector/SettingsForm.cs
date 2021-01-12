@@ -385,6 +385,19 @@ namespace NGUInjector
                 WishPriority.Items.Clear();
             }
 
+            temp = newSettings.WishExclusions.ToDictionary(x => x, x => Main.Character.wishesController.properties[x].wishName);
+            if (temp.Count > 0)
+            {
+                WishExclusions.DataSource = null;
+                WishExclusions.DataSource = new BindingSource(temp, null);
+                WishExclusions.ValueMember = "Key";
+                WishExclusions.DisplayMember = "Value";
+            }
+            else
+            {
+                WishExclusions.Items.Clear();
+            }
+
             temp = newSettings.BlacklistedBosses.ToDictionary(x => x, x => SpriteEnemyList[x]);
             if (temp.Count > 0)
             {
@@ -1412,5 +1425,108 @@ namespace NGUInjector
             var path = Path.Combine(Main.GetProfilesDir(), filename);
             Process.Start(path);
         }
+
+        #region Exclude Wishes
+
+        private void ExcludeWishButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Main.Log($"{nameof(ExcludeWishButton_Click)}");
+                wishErrorProvider.SetError(WishAddInput, "");
+                var val = decimal.ToInt32(WishAddInput.Value);
+                if (val < 0 || val > Consts.MAX_WISH_ID)
+                {
+                    wishErrorProvider.SetError(WishAddInput, "Not a valid Wish ID");
+                    return;
+                }
+
+                if (Main.Settings.WishExclusions.Contains(val)) return;
+                var temp = Main.Settings.WishExclusions.ToList();
+                temp.Add(val);
+                Main.Settings.WishExclusions = temp.ToArray();
+            }
+            catch (Exception exception)
+            {
+                Main.Log($"{nameof(ExcludeWishButton_Click)} exception: {exception.Message}");
+            }
+        }
+
+        private void ExcludeWishUpButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Main.Log($"{nameof(ExcludeWishUpButton_Click)}");
+
+                wishErrorProvider.SetError(WishAddInput, "");
+                var index = WishExclusions.SelectedIndex;
+                if (index == -1 || index == 0)
+                    return;
+
+                var temp = Main.Settings.WishExclusions.ToList();
+                var item = temp[index];
+                temp.RemoveAt(index);
+                temp.Insert(index - 1, item);
+                Main.Settings.WishExclusions = temp.ToArray();
+                WishExclusions.SelectedIndex = index - 1;
+            }
+            catch (Exception exception)
+            {
+                Main.Log($"{nameof(ExcludeWishUpButton_Click)} exception: {exception.Message}");
+            }
+        }
+
+        private void RemoveExclusion_Click(object sender, EventArgs e)
+        {
+            Main.Log($"{nameof(RemoveExclusion_Click)}");
+
+            try
+            {
+                wishErrorProvider.SetError(WishAddInput, "");
+
+                var item = WishExclusions.SelectedItem;
+                if (item == null)
+                    return;
+
+                var id = (KeyValuePair<int, string>)item;
+
+                var temp = Main.Settings.WishExclusions.ToList();
+                temp.RemoveAll(x => x == id.Key);
+                Main.Settings.WishExclusions = temp.ToArray();
+            }
+            catch (Exception exception)
+            {
+                Main.Log($"{nameof(RemoveExclusion_Click)} exception: {exception.Message}");
+            }
+        }
+
+        private void ExcludeWishDownButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Main.Log($"{nameof(ExcludeWishDownButton_Click)} click");
+
+                wishErrorProvider.SetError(WishAddInput, "");
+                var index = WishExclusions.SelectedIndex;
+                if (index == -1)
+                    return;
+
+                var temp = Main.Settings.WishExclusions.ToList();
+
+                if (index == temp.Count - 1)
+                    return;
+                var item = temp[index];
+                temp.RemoveAt(index);
+                temp.Insert(index + 1, item);
+                Main.Settings.WishExclusions = temp.ToArray();
+                WishExclusions.SelectedIndex = index + 1;
+            }
+            catch (Exception exception)
+            {
+                Main.Log($"{nameof(ExcludeWishDownButton_Click)} exception: {exception.Message}");
+            }
+        }
+         
+        #endregion Exclude Wishes
     }
 }
