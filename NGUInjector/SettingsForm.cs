@@ -375,10 +375,18 @@ namespace NGUInjector
             temp = newSettings.WishPriorities.ToDictionary(x => x, x => Main.Character.wishesController.properties[x].wishName);
             if (temp.Count > 0)
             {
+                int? si = null;
+                if (WishExclusions.SelectedItem != null)
+                {
+                    var id = (KeyValuePair<int, string>) WishExclusions.SelectedItem;
+                    si = id.Key == temp.Count ? id.Key - 1 : id.Key;
+                }
+            
                 WishPriority.DataSource = null;
                 WishPriority.DataSource = new BindingSource(temp, null);
                 WishPriority.ValueMember = "Key";
                 WishPriority.DisplayMember = "Value";
+                if (si != null) WishPriority.SelectedIndex = (int) si;
             }
             else
             {
@@ -1114,17 +1122,27 @@ namespace NGUInjector
 
         private void RemoveWishButton_Click(object sender, EventArgs e)
         {
-            wishErrorProvider.SetError(WishAddInput, "");
+            Main.Log($"{nameof(RemoveWishButton_Click)}");
 
-            var item = WishPriority.SelectedItem;
-            if (item == null)
-                return;
+            try
+            {
+                wishErrorProvider.SetError(WishAddInput, "");
 
-            var id = (KeyValuePair<int, string>)item;
+                var item = WishPriority.SelectedItem;
+                if (item == null)
+                    return;
 
-            var temp = Main.Settings.WishPriorities.ToList();
-            temp.RemoveAll(x => x == id.Key);
-            Main.Settings.WishPriorities = temp.ToArray();
+                var id = (KeyValuePair<int, string>)item;
+
+                var temp = Main.Settings.WishPriorities.ToList();
+                temp.RemoveAll(x => x == id.Key);
+                Main.Settings.WishPriorities = temp.ToArray();
+                Main.Log($"\t{nameof(RemoveWishButton_Click)} Finish");
+            }
+            catch (Exception exception)
+            {
+                Main.Log($"\t{nameof(RemoveWishButton_Click)} exception: {exception.Message}");
+            }
         }
 
         private void WishAddInput_TextChanged(object sender, EventArgs e)
@@ -1493,10 +1511,11 @@ namespace NGUInjector
                 var temp = Main.Settings.WishExclusions.ToList();
                 temp.RemoveAll(x => x == id.Key);
                 Main.Settings.WishExclusions = temp.ToArray();
+                Main.Log($"\t{nameof(RemoveExclusion_Click)} Finish");
             }
             catch (Exception exception)
             {
-                Main.Log($"{nameof(RemoveExclusion_Click)} exception: {exception.Message}");
+                Main.Log($"\t{nameof(RemoveExclusion_Click)} exception: {exception.Message}");
             }
         }
 
