@@ -376,12 +376,12 @@ namespace NGUInjector
             if (temp.Count > 0)
             {
                 int? si = null;
-                if (WishExclusions.SelectedItem != null)
+                if (WishPriority.SelectedItem != null)
                 {
-                    var id = (KeyValuePair<int, string>) WishExclusions.SelectedItem;
-                    si = id.Key == temp.Count ? id.Key - 1 : id.Key;
+                    si = WishPriority.SelectedIndices[0];
+                    if (si >= temp.Count) si = temp.Count-1;
                 }
-            
+                
                 WishPriority.DataSource = null;
                 WishPriority.DataSource = new BindingSource(temp, null);
                 WishPriority.ValueMember = "Key";
@@ -396,10 +396,18 @@ namespace NGUInjector
             temp = newSettings.WishExclusions.ToDictionary(x => x, x => Main.Character.wishesController.properties[x].wishName);
             if (temp.Count > 0)
             {
+                int? si = null;
+                if (WishExclusions.SelectedItem != null)
+                {
+                    si = WishExclusions.SelectedIndices[0];
+                    if (si >= temp.Count) si = temp.Count - 1;
+                }
+
                 WishExclusions.DataSource = null;
                 WishExclusions.DataSource = new BindingSource(temp, null);
                 WishExclusions.ValueMember = "Key";
                 WishExclusions.DisplayMember = "Value";
+                if (si != null) WishExclusions.SelectedIndex = (int)si;
             }
             else
             {
